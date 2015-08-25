@@ -3,6 +3,59 @@
 # ===================================
 
 fields:
-    id:
-        label: ID
-        disabled: true
+    title:
+        label: abnmt.theaternews::lang.post.title
+        span: left
+        placeholder: abnmt.theaternews::lang.post.title_placeholder
+    slug:
+        label: abnmt.theaternews::lang.post.slug
+        span: right
+        placeholder: abnmt.theaternews::lang.post.slug_placeholder
+        preset:
+            field: title
+            type: slug
+
+secondaryTabs:
+    stretch: true
+    fields:
+        content:
+            type: richeditor
+            size: huge
+
+        categories:
+            tab: abnmt.theaternews::lang.post.tab_categories
+            type: relation
+            commentAbove: abnmt.theaternews::lang.post.categories_comment
+            placeholder: abnmt.theaternews::lang.post.categories_placeholder
+
+        published:
+            tab: abnmt.theaternews::lang.post.tab_manage
+            label: abnmt.theaternews::lang.post.published
+            span: left
+            type: checkbox
+
+        published_at:
+            tab: abnmt.theaternews::lang.post.tab_manage
+            label: abnmt.theaternews::lang.post.published_on
+            span: left
+            cssClass: checkbox-align
+            type: datepicker
+            mode: date
+            trigger:
+                action: enable
+                field: published
+                condition: checked
+
+        excerpt:
+            tab: abnmt.theaternews::lang.post.tab_manage
+            label: abnmt.theaternews::lang.post.summary
+            type: textarea
+            size: small
+
+        cover:
+            tab: abnmt.theaternews::lang.post.tab_manage
+            label: abnmt.theaternews::lang.post.cover
+            type: fileupload
+            mode: image
+            imageWidth: 300
+            imageHeight: 200

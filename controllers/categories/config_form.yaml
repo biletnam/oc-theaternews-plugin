@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: abnmt.theaternews::lang.category.label
+
+# Model Form Field configuration
+form: $/abnmt/theaternews/models/category/fields.yaml
+
+# Model Class name
+modelClass: Abnmt\TheaterNews\Models\Category
+
+# Default redirect location
+defaultRedirect: abnmt/theaternews/categories
+
+# Create page
+create:
+    title: abnmt.theaternews::lang.category.create_title
+    redirect: abnmt/theaternews/categories/update/:id
+    redirectClose: abnmt/theaternews/categories
+
+# Update page
+update:
+    title: abnmt.theaternews::lang.category.update_title
+    redirect: abnmt/theaternews/categories
+    redirectClose: abnmt/theaternews/categories
+
+# Preview page
+preview:
+    title: abnmt.theaternews::lang.category.preview_title

@@ -33,4 +33,20 @@ return [
         'delete_selected_success' => 'abnmt.theaternews::lang.news.delete_selected_success',
         'delete_selected_empty' => 'abnmt.theaternews::lang.news.delete_selected_empty',
     ],
+    'category' => [
+        'label' => 'abnmt.theaternews::lang.category.label',
+        'create_title' => 'abnmt.theaternews::lang.category.create_title',
+        'update_title' => 'abnmt.theaternews::lang.category.update_title',
+        'preview_title' => 'abnmt.theaternews::lang.category.preview_title',
+        'list_title' => 'abnmt.theaternews::lang.category.list_title',
+        'new' => 'abnmt.theaternews::lang.category.new',
+    ],
+    'categories' => [
+        'menu_label' => 'abnmt.theaternews::lang.categories.menu_label',
+        'return_to_list' => 'abnmt.theaternews::lang.categories.return_to_list',
+        'delete_confirm' => 'abnmt.theaternews::lang.categories.delete_confirm',
+        'delete_selected_confirm' => 'abnmt.theaternews::lang.categories.delete_selected_confirm',
+        'delete_selected_success' => 'abnmt.theaternews::lang.categories.delete_selected_success',
+        'delete_selected_empty' => 'abnmt.theaternews::lang.categories.delete_selected_empty',
+    ],
 ];

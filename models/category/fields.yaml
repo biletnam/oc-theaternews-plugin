@@ -3,6 +3,13 @@
 # ===================================
 
 fields:
-    id:
-        label: ID
-        disabled: true
+    title:
+        label: abnmt.theaternews::lang.category.title
+        placeholder: abnmt.theaternews::lang.category.name_placeholder
+        span: left
+
+    slug:
+        label: abnmt.theaternews::lang.category.slug
+        span: right
+        placeholder: abnmt.theaternews::lang.category.slug_placeholder
+        preset: title

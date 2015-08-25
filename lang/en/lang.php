@@ -33,4 +33,20 @@ return [
         'delete_selected_success' => 'Successfully deleted the selected news.',
         'delete_selected_empty' => 'There are no selected :name to delete.',
     ],
+    'category' => [
+        'label' => 'Category',
+        'create_title' => 'Create Category',
+        'update_title' => 'Edit Category',
+        'preview_title' => 'Preview Category',
+        'list_title' => 'Manage Categories',
+        'new' => 'New Category',
+    ],
+    'categories' => [
+        'menu_label' => 'Categories',
+        'return_to_list' => 'Return to Categories',
+        'delete_confirm' => 'Do you really want to delete this category?',
+        'delete_selected_confirm' => 'Delete the selected categories?',
+        'delete_selected_success' => 'Successfully deleted the selected categories.',
+        'delete_selected_empty' => 'There are no selected :name to delete.',
+    ],
 ];

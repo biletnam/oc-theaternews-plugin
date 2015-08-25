@@ -3,6 +3,16 @@
 # ===================================
 
 columns:
-    id:
-        label: ID
+    title:
+        label: abnmt.theaternews::lang.post.title
         searchable: true
+
+    categories:
+        label: abnmt.theaternews::lang.post.categories
+        relation: categories
+        select: name
+        searchable: true
+        sortable: false
+    published_at:
+        label: abnmt.theaternews::lang.post.published
+        type: date
