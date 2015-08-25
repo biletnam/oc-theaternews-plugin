@@ -72,6 +72,8 @@ class News extends ComponentBase
             });
         }
 
+        CW::info(['News' => $post]);
+
         return $post;
     }
 
