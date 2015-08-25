@@ -6,9 +6,9 @@ use Flash;
 use Lang;
 
 /**
- * News Back-end Controller
+ * Posts Back-end Controller
  */
-class News extends Controller
+class Posts extends Controller
 {
     public $implement = [
         'Backend.Behaviors.FormController',
@@ -22,25 +22,25 @@ class News extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('Abnmt.TheaterNews', 'theaternews', 'news');
+        BackendMenu::setContext('Abnmt.TheaterNews', 'theaternews', 'posts');
     }
 
     /**
-     * Deleted checked news.
+     * Deleted checked posts.
      */
     public function index_onDelete()
     {
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
 
-            foreach ($checkedIds as $newsId) {
-                if (!$news = News::find($newsId)) continue;
-                $news->delete();
+            foreach ($checkedIds as $postId) {
+                if (!$post = Post::find($postId)) continue;
+                $post->delete();
             }
 
-            Flash::success(Lang::get('abnmt.theaternews::lang.news.delete_selected_success'));
+            Flash::success(Lang::get('abnmt.theaternews::lang.posts.delete_selected_success'));
         }
         else {
-            Flash::error(Lang::get('abnmt.theaternews::lang.news.delete_selected_empty'));
+            Flash::error(Lang::get('abnmt.theaternews::lang.posts.delete_selected_empty'));
         }
 
         return $this->listRefresh();

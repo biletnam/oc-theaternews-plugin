@@ -45,10 +45,10 @@ class SeedPeopleTable extends Seeder
         if (!is_array($categories)) $categories = [$categories];
 
         foreach ($categories as $key => $category) {
-            $taxonomy = $taxonomyModelName::where('title', '=', $category)->first();
+            $taxonomy = $taxonomyModelName::where('name', '=', $category)->first();
 
             if (is_null($taxonomy)) {
-                $taxonomy = $taxonomyModelName::create(['title' => $category]);
+                $taxonomy = $taxonomyModelName::create(['name' => $category]);
             }
 
             if (!is_null($taxonomy)) {

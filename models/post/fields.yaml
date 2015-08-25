@@ -19,6 +19,7 @@ secondaryTabs:
     stretch: true
     fields:
         content:
+            tab: abnmt.theaternews::lang.post.tab_content
             type: richeditor
             size: huge
 

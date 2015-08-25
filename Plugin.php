@@ -33,16 +33,16 @@ class Plugin extends PluginBase
     public function registerNavigation()
     {
         return [
-            'theater' => [
+            'theaternews' => [
                 'label' => 'Новости',
-                'url' => \Backend::url('abnmt/theaternews/news'),
+                'url' => \Backend::url('abnmt/theaternews/posts'),
                 'icon' => 'icon-newspaper-o',
                 'order' => 500,
                 'sideMenu' => [
-                    'news' => [
+                    'posts' => [
                         'label' => 'Новости',
                         'icon'  => 'icon-newspaper-o',
-                        'url'   => \Backend::url('abnmt/theaternews/news'),
+                        'url'   => \Backend::url('abnmt/theaternews/posts'),
                     ],
                     'categories' => [
                         'label' => 'Категории',

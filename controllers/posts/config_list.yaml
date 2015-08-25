@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: $/abnmt/theaternews/models/news/columns.yaml
+list: $/abnmt/theaternews/models/post/columns.yaml
 
 # Model Class name
-modelClass: Abnmt\TheaterNews\Models\News
+modelClass: Abnmt\TheaterNews\Models\Post
 
 # List Title
-title: abnmt.theaternews::lang.news.list_title
+title: abnmt.theaternews::lang.post.list_title
 
 # Link URL for each record
-recordUrl: abnmt/theaternews/news/update/:id
+recordUrl: abnmt/theaternews/posts/update/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records
@@ -27,9 +27,9 @@ showSetup: true
 showSorting: true
 
 # Default sorting column
-# defaultSort:
-#     column: created_at
-#     direction: desc
+defaultSort:
+    column: published_at
+    direction: desc
 
 # Display checkboxes next to each record
 # showCheckboxes: true

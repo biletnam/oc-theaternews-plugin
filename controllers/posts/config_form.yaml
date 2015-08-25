@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: abnmt.theaternews::lang.post.label
+
+# Model Form Field configuration
+form: $/abnmt/theaternews/models/post/fields.yaml
+
+# Model Class name
+modelClass: Abnmt\TheaterNews\Models\Post
+
+# Default redirect location
+defaultRedirect: abnmt/theaternews/posts
+
+# Create page
+create:
+    title: abnmt.theaternews::lang.post.create_title
+    redirect: abnmt/theaternews/posts/update/:id
+    redirectClose: abnmt/theaternews/posts
+
+# Update page
+update:
+    title: abnmt.theaternews::lang.post.update_title
+    redirect: abnmt/theaternews/posts
+    redirectClose: abnmt/theaternews/posts
+
+# Preview page
+preview:
+    title: abnmt.theaternews::lang.post.preview_title

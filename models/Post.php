@@ -1,6 +1,7 @@
 <?php namespace Abnmt\TheaterNews\Models;
 
 use Model;
+use Str;
 
 /**
  * Post Model
@@ -47,7 +48,7 @@ class Post extends Model
     public $hasMany = [];
     public $belongsTo = [];
     public $belongsToMany = [
-        'categories' => ['Abnmt\TheaterNews\Models\Category', 'table' => 'abnmt_theaternews_posts_categories', 'order' => 'title']
+        'categories' => ['Abnmt\TheaterNews\Models\Category', 'table' => 'abnmt_theaternews_posts_categories', 'order' => 'name']
     ];
     public $morphTo = [];
     public $morphOne = [];

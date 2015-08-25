@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('abnmt/theaternews/news') ?>"><?= e(trans('abnmt.theaternews::lang.news.menu_label')) ?></a></li>
+        <li><a href="<?= Backend::url('abnmt/theaternews/posts') ?>"><?= e(trans('abnmt.theaternews::lang.posts.menu_label')) ?></a></li>
         <li><?= e(trans($this->pageTitle)) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -14,6 +14,6 @@
 <?php else: ?>
 
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('abnmt/theaternews/news') ?>" class="btn btn-default"><?= e(trans('abnmt.theaternews::lang.news.return_to_list')) ?></a></p>
+    <p><a href="<?= Backend::url('abnmt/theaternews/posts') ?>" class="btn btn-default"><?= e(trans('abnmt.theaternews::lang.posts.return_to_list')) ?></a></p>
 
 <?php endif ?>

@@ -1,6 +1,7 @@
 <?php namespace Abnmt\TheaterNews\Models;
 
 use Model;
+use Str;
 
 /**
  * Category Model
@@ -42,7 +43,14 @@ class Category extends Model
     {
         // Generate a URL slug for this model
         if (!$this->exists && !$this->slug)
-            $this->slug = Str::slug($this->title);
+            $this->slug = Str::slug($this->name);
+    }
+
+    public function beforeCreate()
+    {
+        // Generate a URL slug for this model
+        if (!$this->exists && !$this->slug)
+            $this->slug = Str::slug($this->name);
     }
 
     public function getPostCountAttribute()

@@ -3,6 +3,10 @@
 # ===================================
 
 columns:
-    id:
-        label: ID
+    name:
+        label: abnmt.theaternews::lang.category.name
         searchable: true
+
+    post_count:
+        label: abnmt.theaternews::lang.category.posts
+        sortable: false
