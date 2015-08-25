@@ -35,10 +35,10 @@ class Post extends Model
      * @var array
      */
     public static $allowedSortingOptions = array(
-        'title asc'         => 'Заголовок (asc)',
-        'title desc'        => 'Заголовок (desc)',
-        'published_at asc'  => 'Дата публикации (asc)',
-        'published_at desc' => 'Дата публикации (desc)',
+        'title asc'         => 'По заголовку (asc)',
+        'title desc'        => 'По заголовку (desc)',
+        'published_at asc'  => 'По дате публикации (asc)',
+        'published_at desc' => 'По дате публикации (desc)',
     );
 
     /**
@@ -70,6 +70,14 @@ class Post extends Model
     // Scopes
     //
 
+    /**
+     * The attributes of posts Scopes
+     * @var array
+     */
+    public static $allowedScopingOptions = [
+        'getNewsFeed' => 'Новостная лента',
+    ];
+
     public function scopeIsPublished($query)
     {
         return $query
@@ -77,6 +85,19 @@ class Post extends Model
             ->where('published', true)
         ;
     }
+
+    public function scopeGetNewsFeed($query)
+    {
+        $query
+            ->isPublished()
+            ->with(['cover'])
+            ->orderBy('published_at', 'desc')
+            ->take(6)
+        ;
+
+        return $query->get();
+    }
+
 
     /**
      * Sets the "url" attribute with a URL to this object

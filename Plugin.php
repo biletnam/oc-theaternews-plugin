@@ -2,7 +2,6 @@
 
 use System\Classes\PluginBase;
 
-
 use Abnmt\TheaterNews\Models\Post     as PostModel;
 use Abnmt\TheaterNews\Models\Category as CategoryModel;
 
@@ -71,6 +70,7 @@ class Plugin extends PluginBase
     {
         $alias = AliasLoader::getInstance();
         $alias->alias( 'Carbon', '\Carbon\Carbon' );
+        $alias->alias( 'CW', '\Clockwork\Support\Laravel\Facade' );
 
         /*
          * Register menu items for the RainLab.Pages plugin

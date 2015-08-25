@@ -39,6 +39,7 @@ class Category extends Model
     public $attachOne = [];
     public $attachMany = [];
 
+
     public function beforeValidate()
     {
         // Generate a URL slug for this model
