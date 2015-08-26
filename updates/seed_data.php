@@ -7,7 +7,7 @@ use Abnmt\TheaterNews\Models\Category;
 
 use October\Rain\Database\Updates\Seeder;
 
-class SeedPeopleTable extends Seeder
+class SeedNewsTable extends Seeder
 {
 
     public function run()

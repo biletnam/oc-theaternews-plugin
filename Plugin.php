@@ -35,12 +35,12 @@ class Plugin extends PluginBase
             'theaternews' => [
                 'label' => 'Новости',
                 'url' => \Backend::url('abnmt/theaternews/posts'),
-                'icon' => 'icon-newspaper-o',
+                'icon' => 'icon-pencil',
                 'order' => 500,
                 'sideMenu' => [
                     'posts' => [
                         'label' => 'Новости',
-                        'icon'  => 'icon-newspaper-o',
+                        'icon'  => 'icon-pencil',
                         'url'   => \Backend::url('abnmt/theaternews/posts'),
                     ],
                     'categories' => [
