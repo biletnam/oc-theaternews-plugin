@@ -134,10 +134,11 @@ class Archive extends ComponentBase
         /*
          * List all the posts, eager load their categories
          */
-        $posts = PostModel::with('categories')->listFrontEnd([
+        $posts = PostModel::with(['categories', 'cover'])->listFrontEnd([
             'page'       => $this->property('pageNumber'),
             'perPage'    => $this->property('postsPerPage'),
-            'categories' => $categories
+            'categories' => $categories,
+            'sort'       => 'published_at desc',
         ]);
 
         /*

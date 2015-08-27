@@ -24,10 +24,29 @@ class SeedNewsTable extends Seeder
 
             $model = $this->createModel( 'Abnmt\TheaterNews\Models\Post', $model);
 
-            if (isset($categories))
+            if (isset($categories)) {
                 $this->addTaxonomy('Abnmt\TheaterNews\Models\Category', $categories, $model);
             }
 
+            preg_match_all('#<img.+?src="(.+?)"#', $model->content, $matches);
+
+            // $images = $matches[1];
+
+            $images = array_filter($matches[1], function($value){
+                return !preg_match('#^https?\:\/\/#', $value);
+            });
+
+            if (count($images) != 0) {
+                $filePath = $images[0];
+
+                // echo $model->title . " -- " . $filePath . "\n";
+
+                $file = new File();
+                $file->fromFile("./" . $filePath);
+
+                // $model->cover()->save($file, null, ['title' => $model->title]);
+            }
+        }
     }
 
 
