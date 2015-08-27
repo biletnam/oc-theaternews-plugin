@@ -30,7 +30,7 @@ class CreateCategoriesTable extends Migration
             $table->engine = 'InnoDB';
             $table->integer('post_id')->unsigned();
             $table->integer('category_id')->unsigned();
-            $table->primary(['post_id', 'category_id']);
+            $table->primary(['post_id', 'category_id'], 'post_category');
         });
     }
 
