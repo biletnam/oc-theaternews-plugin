@@ -36,7 +36,7 @@ class Plugin extends PluginBase
                 'label' => 'Новости',
                 'url' => \Backend::url('abnmt/theaternews/posts'),
                 'icon' => 'icon-pencil',
-                'order' => 500,
+                'order' => 100,
                 'sideMenu' => [
                     'posts' => [
                         'label' => 'Новости',
