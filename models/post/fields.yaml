@@ -21,7 +21,7 @@ secondaryTabs:
         content:
             tab: abnmt.theaternews::lang.post.tab_content
             type: richeditor
-            size: huge
+            size: giant
 
         categories:
             tab: abnmt.theaternews::lang.post.tab_categories
