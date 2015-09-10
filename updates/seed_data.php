@@ -44,7 +44,7 @@ class SeedNewsTable extends Seeder
                 $file = new File();
                 $file->fromFile("./" . $filePath);
 
-                // $model->cover()->save($file, null, ['title' => $model->title]);
+                $model->cover()->save($file, null, ['title' => $model->title]);
             }
         }
     }
