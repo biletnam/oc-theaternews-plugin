@@ -1,11 +1,7 @@
 <?php namespace Abnmt\TheaterNews\Updates;
 
-use System\Models\File as File;
-
-use Abnmt\TheaterNews\Models\Post;
-use Abnmt\TheaterNews\Models\Category;
-
 use October\Rain\Database\Updates\Seeder;
+use System\Models\File as File;
 
 class SeedNewsTable extends Seeder
 {
@@ -22,7 +18,7 @@ class SeedNewsTable extends Seeder
                 unset($model['category']);
             }
 
-            $model = $this->createModel( 'Abnmt\TheaterNews\Models\Post', $model);
+            $model = $this->createModel('Abnmt\TheaterNews\Models\Post', $model);
 
             if (isset($categories)) {
                 $this->addTaxonomy('Abnmt\TheaterNews\Models\Category', $categories, $model);
@@ -32,7 +28,7 @@ class SeedNewsTable extends Seeder
 
             // $images = $matches[1];
 
-            $images = array_filter($matches[1], function($value){
+            $images = array_filter($matches[1], function ($value) {
                 return !preg_match('#^https?\:\/\/#', $value);
             });
 
@@ -49,8 +45,6 @@ class SeedNewsTable extends Seeder
         }
     }
 
-
-
     private function createModel($modelName, $model)
     {
         $model = $modelName::create($model);
@@ -58,10 +52,11 @@ class SeedNewsTable extends Seeder
         return $model;
     }
 
-
     private function addTaxonomy($taxonomyModelName, $categories, $model)
     {
-        if (!is_array($categories)) $categories = [$categories];
+        if (!is_array($categories)) {
+            $categories = [$categories];
+        }
 
         foreach ($categories as $key => $category) {
             $taxonomy = $taxonomyModelName::where('name', '=', $category)->first();

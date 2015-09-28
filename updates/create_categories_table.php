@@ -1,7 +1,7 @@
 <?php namespace Abnmt\TheaterNews\Updates;
 
-use Schema;
 use October\Rain\Database\Updates\Migration;
+use Schema;
 
 class CreateCategoriesTable extends Migration
 {
@@ -12,8 +12,7 @@ class CreateCategoriesTable extends Migration
         Schema::dropIfExists('abnmt_theaternews_categories');
         Schema::dropIfExists('abnmt_theaternews_posts_categories');
 
-        Schema::create('abnmt_theaternews_categories', function($table)
-        {
+        Schema::create('abnmt_theaternews_categories', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
 
@@ -25,8 +24,7 @@ class CreateCategoriesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('abnmt_theaternews_posts_categories', function($table)
-        {
+        Schema::create('abnmt_theaternews_posts_categories', function ($table) {
             $table->engine = 'InnoDB';
             $table->integer('post_id')->unsigned();
             $table->integer('category_id')->unsigned();

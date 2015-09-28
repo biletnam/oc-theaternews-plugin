@@ -1,7 +1,7 @@
 <?php namespace Abnmt\TheaterNews\Updates;
 
-use Schema;
 use October\Rain\Database\Updates\Migration;
+use Schema;
 
 class CreatePostsTable extends Migration
 {
@@ -9,8 +9,7 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::dropIfExists('abnmt_theaternews_posts');
-        Schema::create('abnmt_theaternews_posts', function($table)
-        {
+        Schema::create('abnmt_theaternews_posts', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
 
