@@ -11,6 +11,11 @@ class SeedNewsTable extends Seeder
 
         $data = require_once 'news.php';
 
+        $path     = "./storage/app/media/news";
+        $fileData = $this->fillArrayWithFileNodes(new \DirectoryIterator($path), ["jpg", "png"]);
+
+        // print_r($fileData);
+
         foreach ($data as $key => $model) {
 
             if (array_key_exists('category', $model)) {
@@ -24,24 +29,8 @@ class SeedNewsTable extends Seeder
                 $this->addTaxonomy('Abnmt\TheaterNews\Models\Category', $categories, $model);
             }
 
-            preg_match_all('#<img.+?src="(.+?)"#', $model->content, $matches);
+            // $this->assignImages($model, $fileData);
 
-            // $images = $matches[1];
-
-            $images = array_filter($matches[1], function ($value) {
-                return !preg_match('#^https?\:\/\/#', $value);
-            });
-
-            if (count($images) != 0) {
-                $filePath = $images[0];
-
-                // echo $model->title . " -- " . $filePath . "\n";
-
-                $file = new File();
-                $file->fromFile("./" . $filePath);
-
-                $model->cover()->save($file, null, ['title' => $model->title]);
-            }
         }
     }
 
@@ -71,4 +60,98 @@ class SeedNewsTable extends Seeder
         }
 
     }
+
+    private function assignImages($model, $fileData)
+    {
+
+        if (array_key_exists($model->slug, $fileData)) {
+
+            $images = $fileData[$model->slug];
+
+            // print_r($images);
+
+            echo $model->slug . " [";
+            // echo get_class($model) . "\n";
+
+            if (!is_array($images)) {
+                return;
+            }
+
+            foreach ($images as $key => $filePath) {
+
+                if (!is_array($filePath)) {
+                    $pathinfo = pathinfo($filePath);
+                    $check    = File::where('attachment_id', '=', $model->id)
+                        ->where('attachment_type', '=', get_class($model))
+                        ->where('file_name', '=', $pathinfo['basename'])
+                        // ->where('field', '=', $pathinfo['filename'])
+                        ->first();
+
+                    if (!is_null($check)) {
+                        // echo $filePath . " ";
+                        // echo filemtime($filePath) . " ";
+                        // echo $check->updated_at->timestamp . "\n";
+                        if (filemtime($filePath) > $check->updated_at->timestamp) {
+                            // echo "File " . $filePath . " is Newer. Update!" . "\n";
+                            echo "^";
+                            $check->delete();
+                        } else {
+                            echo "~";
+                            continue;
+                        }
+                    } else {
+                        // echo "File " . $filePath . " is New. Create!" . "\n";
+                        echo "+";
+                    }
+
+                    $file = new File();
+                    $file->fromFile($filePath);
+
+                    switch ($key) {
+                        case 'cover':
+                            $model->cover()->save($file, null, ['title' => $model->title]);
+                            break;
+                        default:
+                            echo ' Image ' . $filePath . ' not saved.' . "\n";
+                            break;
+                    }
+                }
+            }
+            echo "]\n";
+        } else {
+            // preg_match_all('#<img.+?src="(.+?)"#', $model->content, $matches);
+
+            // // $images = $matches[1];
+
+            // $images = array_filter($matches[1], function ($value) {
+            //     return !preg_match('#^https?\:\/\/#', $value);
+            // });
+
+            // if (count($images) != 0) {
+            //     $filePath = $images[0];
+
+            //     // echo $model->title . " -- " . $filePath . "\n";
+
+            //     $file = new File();
+            //     $file->fromFile("./" . $filePath);
+
+            //     $model->cover()->save($file, null, ['title' => $model->title]);
+            // }
+        }
+
+    }
+
+    private function fillArrayWithFileNodes(\DirectoryIterator $dir, $ext = ["jpg", "png"])
+    {
+        $data = array();
+        foreach ($dir as $node) {
+            if ($node->isDir() && !$node->isDot()) {
+                $data[$node->getFilename()] = self::fillArrayWithFileNodes(new \DirectoryIterator($node->getPathname()));
+            } elseif ($node->isFile() && in_array($node->getExtension(), $ext)) {
+                $data[$node->getBasename('.' . $node->getExtension())] = $node->getPathname();
+            }
+        }
+        return $data;
+    }
+
 }
