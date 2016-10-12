@@ -44,21 +44,21 @@ class Post extends Model
     /**
      * @var array Relations
      */
-    public $hasOne = [];
-    public $hasMany = [];
-    public $belongsTo = [];
+    public $hasOne        = [];
+    public $hasMany       = [];
+    public $belongsTo     = [];
     public $belongsToMany = [
-        'categories' => ['Abnmt\TheaterNews\Models\Category', 'table' => 'abnmt_theaternews_posts_categories', 'order' => 'name']
+        'categories' => ['Abnmt\TheaterNews\Models\Category', 'table' => 'abnmt_theaternews_posts_categories', 'order' => 'name'],
     ];
-    public $morphTo = [];
-    public $morphOne = [];
-    public $morphMany = [];
+    public $morphTo   = [];
+    public $morphOne  = [];
+    public $morphMany = [
+        'events' => ['Abnmt\Theater\Models\Event', 'name' => 'relation'],
+    ];
     public $attachOne = [
-        'cover' => ['System\Models\File']
+        'cover' => ['System\Models\File'],
     ];
     public $attachMany = [];
-
-
 
     public function beforeCreate()
     {
@@ -98,7 +98,6 @@ class Post extends Model
         return $query->get();
     }
 
-
     /**
      * Lists posts for the front end
      * @param  array $options Display options
@@ -115,23 +114,30 @@ class Post extends Model
             'sort'       => 'published_at',
             'categories' => null,
             'search'     => '',
-            'published'  => true
+            'published'  => true,
         ], $options));
 
         $searchableFields = ['title', 'slug', 'excerpt', 'content'];
 
-        if ($published)
+        if ($published) {
             $query->isPublished();
+        }
 
         /*
          * Sorting
          */
-        if (!is_array($sort)) $sort = [$sort];
+        if (!is_array($sort)) {
+            $sort = [$sort];
+        }
+
         foreach ($sort as $_sort) {
 
             if (in_array($_sort, array_keys(self::$allowedSortingOptions))) {
                 $parts = explode(' ', $_sort);
-                if (count($parts) < 2) array_push($parts, 'desc');
+                if (count($parts) < 2) {
+                    array_push($parts, 'desc');
+                }
+
                 list($sortField, $sortDirection) = $parts;
 
                 $query->orderBy($sortField, $sortDirection);
@@ -150,8 +156,11 @@ class Post extends Model
          * Categories
          */
         if ($categories !== null) {
-            if (!is_array($categories)) $categories = [$categories];
-            $query->whereHas('categories', function($q) use ($categories) {
+            if (!is_array($categories)) {
+                $categories = [$categories];
+            }
+
+            $query->whereHas('categories', function ($q) use ($categories) {
                 $q->whereIn('id', $categories);
             });
         }
@@ -167,7 +176,7 @@ class Post extends Model
     public function setUrl($pageName, $controller)
     {
         $params = [
-            'id' => $this->id,
+            'id'   => $this->id,
             'slug' => $this->slug,
         ];
 
