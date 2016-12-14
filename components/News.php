@@ -61,7 +61,7 @@ class News extends ComponentBase
     protected function loadPost()
     {
         $slug = $this->property('slug');
-        $post = PostModel::isPublished()->where('slug', $slug)->first();
+        $post = PostModel::isPublished()->where('slug', $slug)->with(['cover'])->first();
 
         /*
          * Add a "url" helper attribute for linking to each category
