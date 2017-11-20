@@ -1,12 +1,9 @@
 <?php namespace Abnmt\TheaterNews\Components;
 
+use Abnmt\TheaterNews\Models\Category as CategoryModel;
+use Abnmt\TheaterNews\Models\Post as PostModel;
 use Cms\Classes\ComponentBase;
 use Cms\Classes\Page;
-
-use Abnmt\TheaterNews\Models\Post     as PostModel;
-use Abnmt\TheaterNews\Models\Category as CategoryModel;
-
-use CW;
 
 class Archive extends ComponentBase
 {
@@ -15,7 +12,7 @@ class Archive extends ComponentBase
     {
         return [
             'name'        => 'abnmt.theaternews::lang.components.archive.name',
-            'description' => 'abnmt.theaternews::lang.components.archive.description'
+            'description' => 'abnmt.theaternews::lang.components.archive.description',
         ];
     }
 
@@ -52,7 +49,7 @@ class Archive extends ComponentBase
     public function defineProperties()
     {
         return [
-            'pageNumber' => [
+            'pageNumber'     => [
                 'title'       => 'abnmt.theaternews::lang.settings.posts_pagination',
                 'description' => 'abnmt.theaternews::lang.settings.posts_pagination_description',
                 'type'        => 'string',
@@ -62,23 +59,23 @@ class Archive extends ComponentBase
                 'title'       => 'abnmt.theaternews::lang.settings.posts_filter',
                 'description' => 'abnmt.theaternews::lang.settings.posts_filter_description',
                 'type'        => 'string',
-                'default'     => ''
+                'default'     => '',
             ],
-            'postsPerPage' => [
+            'postsPerPage'   => [
                 'title'             => 'abnmt.theaternews::lang.settings.posts_per_page',
                 'type'              => 'string',
                 'validationPattern' => '^[0-9]+$',
                 'validationMessage' => 'abnmt.theaternews::lang.settings.posts_per_page_validation',
                 'default'           => '10',
             ],
-            'categoryPage' => [
+            'categoryPage'   => [
                 'title'       => 'abnmt.theaternews::lang.settings.posts_category',
                 'description' => 'abnmt.theaternews::lang.settings.posts_category_description',
                 'type'        => 'dropdown',
                 'default'     => 'theaterNews/category',
                 'group'       => 'Страницы',
             ],
-            'postPage' => [
+            'postPage'       => [
                 'title'       => 'abnmt.theaternews::lang.settings.posts_post',
                 'description' => 'abnmt.theaternews::lang.settings.posts_post_description',
                 'type'        => 'dropdown',
@@ -97,7 +94,6 @@ class Archive extends ComponentBase
         return Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
     }
 
-
     public function onRun()
     {
         $this->prepareVars();
@@ -111,14 +107,16 @@ class Archive extends ComponentBase
         if ($pageNumberParam = $this->paramName('pageNumber')) {
             $currentPage = $this->property('pageNumber');
 
-            if ($currentPage > ($lastPage = $this->posts->lastPage()) && $currentPage > 1)
+            if ($currentPage > ($lastPage = $this->posts->lastPage()) && $currentPage > 1) {
                 return Redirect::to($this->currentPageUrl([$pageNumberParam => $lastPage]));
+            }
+
         }
     }
 
     protected function prepareVars()
     {
-        $this->pageParam      = $this->page['pageParam']      = $this->paramName('pageNumber');
+        $this->pageParam = $this->page['pageParam'] = $this->paramName('pageNumber');
 
         /*
          * Page links
@@ -144,26 +142,26 @@ class Archive extends ComponentBase
         /*
          * Add a "url" helper attribute for linking to each post and category
          */
-        $posts->each(function($post){
+        $posts->each(function ($post) {
             $post->setUrl($this->postPage, $this->controller);
 
-            $post->categories->each(function($category){
+            $post->categories->each(function ($category) {
                 $category->setUrl($this->categoryPage, $this->controller);
             });
         });
-
-        CW::info(['NewsArchive' => $posts]);
 
         return $posts;
     }
 
     protected function loadCategory()
     {
-        if (!$categoryId = $this->property('categoryFilter'))
+        if (!$categoryId = $this->property('categoryFilter')) {
             return null;
+        }
 
-        if (!$category = CategoryModel::whereSlug($categoryId)->first())
+        if (!$category = CategoryModel::whereSlug($categoryId)->first()) {
             return null;
+        }
 
         return $category;
     }

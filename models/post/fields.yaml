@@ -60,3 +60,15 @@ secondaryTabs:
             mode: image
             imageWidth: 300
             imageHeight: 200
+        playbill:
+            tab: abnmt.theaternews::lang.post.tab_manage
+            label: abnmt.theaternews::lang.post.playbill
+            type: fileupload
+            mode: image
+            imageWidth: 600
+            imageHeight: 300
+        featured:
+            tab: abnmt.theaternews::lang.post.tab_manage
+            label: abnmt.theaternews::lang.post.featured
+            type: fileupload
+            mode: image

@@ -57,8 +57,11 @@ class Post extends Model
     ];
     public $attachOne = [
         'cover' => ['System\Models\File'],
+        'playbill' => ['System\Models\File'],
     ];
-    public $attachMany = [];
+    public $attachMany = [
+        'featured' => ['System\Models\File'],
+    ];
 
     public function beforeCreate()
     {
