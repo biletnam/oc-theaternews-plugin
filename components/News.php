@@ -1,11 +1,8 @@
 <?php namespace Abnmt\TheaterNews\Components;
 
+use Abnmt\TheaterNews\Models\Post as PostModel;
 use Cms\Classes\ComponentBase;
 use Cms\Classes\Page;
-
-use Abnmt\TheaterNews\Models\Post as PostModel;
-
-use CW;
 
 class News extends ComponentBase
 {
@@ -14,7 +11,7 @@ class News extends ComponentBase
     {
         return [
             'name'        => 'abnmt.theaternews::lang.components.news.name',
-            'description' => 'abnmt.theaternews::lang.components.news.description'
+            'description' => 'abnmt.theaternews::lang.components.news.description',
         ];
     }
 
@@ -28,15 +25,14 @@ class News extends ComponentBase
      */
     public $categoryPage;
 
-
     public function defineProperties()
     {
         return [
-            'slug' => [
+            'slug'         => [
                 'title'       => 'abnmt.theaternews::lang.settings.post_slug',
                 'description' => 'abnmt.theaternews::lang.settings.post_slug_description',
                 'default'     => '{{ :slug }}',
-                'type'        => 'string'
+                'type'        => 'string',
             ],
             'categoryPage' => [
                 'title'       => 'abnmt.theaternews::lang.settings.post_category',
@@ -55,24 +51,22 @@ class News extends ComponentBase
     public function onRun()
     {
         $this->categoryPage = $this->page['categoryPage'] = $this->property('categoryPage');
-        $this->post = $this->page['post'] = $this->loadPost();
+        $this->post         = $this->page['post']         = $this->loadPost();
     }
 
     protected function loadPost()
     {
         $slug = $this->property('slug');
-        $post = PostModel::isPublished()->where('slug', $slug)->with(['cover'])->first();
+        $post = PostModel::isPublished()->where('slug', $slug)->with(['cover', 'events'])->first();
 
         /*
          * Add a "url" helper attribute for linking to each category
          */
         if ($post && $post->categories->count()) {
-            $post->categories->each(function($category){
+            $post->categories->each(function ($category) {
                 $category->setUrl($this->categoryPage, $this->controller);
             });
         }
-
-        CW::info(['News' => $post]);
 
         return $post;
     }

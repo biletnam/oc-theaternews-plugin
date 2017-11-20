@@ -1,11 +1,8 @@
 <?php namespace Abnmt\TheaterNews\Components;
 
+use Abnmt\TheaterNews\Models\Post as PostModel;
 use Cms\Classes\ComponentBase;
 use Cms\Classes\Page;
-
-use Abnmt\TheaterNews\Models\Post as PostModel;
-
-use CW;
 
 class Feed extends ComponentBase
 {
@@ -14,14 +11,14 @@ class Feed extends ComponentBase
     {
         return [
             'name'        => 'abnmt.theaternews::lang.components.feed.name',
-            'description' => 'abnmt.theaternews::lang.components.feed.description'
+            'description' => 'abnmt.theaternews::lang.components.feed.description',
         ];
     }
 
     public function defineProperties()
     {
         return [
-            'postPage' => [
+            'postPage'     => [
                 'title'       => 'Страница новости',
                 'description' => 'CMS страница для вывода новости',
                 'type'        => 'dropdown',
@@ -35,7 +32,7 @@ class Feed extends ComponentBase
                 'default'     => 'theaterNews/category',
                 'group'       => 'Страницы',
             ],
-            'archivePage' => [
+            'archivePage'  => [
                 'title'       => 'Страница архива новостей',
                 'description' => 'CMS страница для вывода архива новостей',
                 'type'        => 'dropdown',
@@ -58,13 +55,11 @@ class Feed extends ComponentBase
         return Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
     }
 
-
     /**
      * A collection of posts to display
      * @var Collection
      */
     public $posts;
-
 
     /**
      * Reference to the page name for linking to posts.
@@ -83,7 +78,6 @@ class Feed extends ComponentBase
      * @var string
      */
     public $archivePage;
-
 
     /**
      *  onRun function
@@ -120,15 +114,13 @@ class Feed extends ComponentBase
         /*
          * Add a "url" helper attribute for linking to each post and category
          */
-        $posts->each(function($post){
+        $posts->each(function ($post) {
             $post->setUrl($this->postPage, $this->controller);
 
-            $post->categories->each(function($category){
+            $post->categories->each(function ($category) {
                 $category->setUrl($this->categoryPage, $this->controller);
             });
         });
-
-        CW::info(['NewsFeed' => $posts]);
 
         return $posts;
     }

@@ -67,7 +67,6 @@ class Plugin extends PluginBase
     {
         $alias = AliasLoader::getInstance();
         $alias->alias('Carbon', '\Carbon\Carbon');
-        $alias->alias('CW', '\Clockwork\Support\Laravel\Facade');
 
         /*
          * Register menu items for the RainLab.Pages plugin
